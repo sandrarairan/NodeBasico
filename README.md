@@ -8,7 +8,7 @@ Curso Platzi
 - [Módulos en Node.js require() module.exports](#Módulos-en-Node.-js-require()-module.exports)
 - [Fundamentos de asincronismo con Node.js](#Fundamentos-de-asincronismo-con-Node.js)
 - [Callbacks y Promesas Casos de estudio](#Callbacks-y-Promesas-Casos-de-estudio)
-- [](#)
+- [Hacia el futuro asincronismo con Async/Await](#Hacia-el-futuro-asincronismo-con-Async/-Await)
 - [](#)
 - [](#)
 - [](#)
@@ -139,19 +139,43 @@ console.log(call.sync("sandra Rairan"))
 ```
 - con callback
 index.js
-````const call  = require("./src/call");
+```const call  = require("./src/call");
 
 call.withCallback("sandra Rairan",
     call.sync)
-    ``` 
+ 
  - con promesas
- ```
+
  const call  = require("./src/call");
 
 //call.withCallback("sandra Rairan", call.sync)
    
 call.withPromise("Sandra rairan")
 .then(name=>{console.log(name)})
+ ```
+ 
+ ## Hacia el futuro: asincronismo con Async/Await
+
+Async / await en realidad está construido por encima de las promesas. No se puede utilizar con devoluciones de llamada simples o devoluciones de llamada de nodo.
+
+https://github.com/platzi/nodejsbasico/tree/clase-async-await-base
+
+- index.js
 ```
+const call = require("./src/call")
+
+//call.greet("Sandra Rairan")
+
+call.withPromise("SANDRA","RAIRAN")
+  .then(n=>console.log(n))
 ```
-- 
+- tambien se puede escribir así:
+const call = require("./src/call")
+
+async function callWithPromise(){
+   const fullName = await call.withPromise("SANDRA","RAIRAN")
+   console.log(fullName)
+}
+callWithPromise()
+
+## 
