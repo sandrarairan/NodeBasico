@@ -11,7 +11,7 @@ Curso Platzi
 - [Hacia el futuro asincronismo con Async/Await](#Hacia-el-futuro-asincronismo-con-Async/-Await)
 - [Node FileSystem Lectura/Escritura de archivos en Node](#Node-FileSystem-Lectura/-Escritura-de-archivos-en-Node)
 - [Node Readline Introducción de datos por terminal](#Node-Readline-Introducción-de-datos-por-terminal)
-- [](#)
+- [Node Child Process: Ejecución de subprocesos con Node](#Node-Child-Process-Ejecución-de-subprocesos-con-Node)
 - [](#)
 - [](#)
 - [](#)
@@ -281,4 +281,28 @@ Ask(q)
 ```
 - node index.js
 
-##
+## Node Child Process Ejecución de subprocesos con Node
+
+El módulo child_process proporciona la capacidad de generar procesos secundarios de manera similar, pero no idéntica. Esta función la proporciona principalmente la función child_process.spawn ():
+
+https://github.com/platzi/nodejsbasico/tree/clase-node-cp-base
+
+index.js ().muetsra tablas de multiplicacion
+npm install
+- ```
+const cp = require('child_process');
+
+function excmm(command){
+   cp.exec(command, (err, stdout, sterr) => {
+        if(err) throw err;
+        if(stdout) console.log(`Out: \n${stdout}`);
+        if(sterr) console.log(`sterr: \${sterr}`);
+    })
+}
+
+//excmm("ls");
+excmm("node ./src/script --base=7 --f=1e5");
+```
+
+
+
