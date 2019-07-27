@@ -9,7 +9,7 @@ Curso Platzi
 - [Fundamentos de asincronismo con Node.js](#Fundamentos-de-asincronismo-con-Node.js)
 - [Callbacks y Promesas Casos de estudio](#Callbacks-y-Promesas-Casos-de-estudio)
 - [Hacia el futuro asincronismo con Async/Await](#Hacia-el-futuro-asincronismo-con-Async/-Await)
-- [](#)
+- [Node FileSystem Lectura/Escritura de archivos en Node](#Node-FileSystem-Lectura/-Escritura-de-archivos-en-Node)
 - [](#)
 - [](#)
 - [](#)
@@ -178,4 +178,39 @@ async function callWithPromise(){
 }
 callWithPromise()
 
-## 
+## Node FileSystem Lectura/Escritura de archivos en Node
+El módulo del sistema de archivos de Node.js le permite trabajar con el sistema de archivos en su computadora. Para incluir el módulo de Sistema de archivos, use el método require ()
+
+https://nodejs.org/dist/latest-v10.x/docs/api/fs.html#fs_fs_readfile_path_options_callback
+
+- index.js
+```
+const fs = require("fs")
+const aps = require("./src/fileops")
+
+fs.readFile("./resources/number.txt", "Utf8",(err,text)=>{
+    if(err) throw err;
+    const numbers = text.split("\n").map(n=>Number(n));
+    
+    console.log(aps.incrementValues(numbers))
+})
+```
+**Hasta aqui hemos leido el archivo**
+- index.js
+```
+const fs = require("fs")
+const aps = require("./src/fileops")
+let incValue;
+fs.readFile("./resources/number.txt", "Utf8",(err,text)=>{
+    if(err) throw err;
+    const numbers = text.split("\n").map(n=>Number(n));
+    
+    incValue=aps.incrementValues(numbers)
+    fs.writeFile("./resources/numbernew.txt", incValue.join("\n"), (err,result)=>{
+        if(err) throw err;
+});
+})
+```
+se crea el archivo numbernew
+
+
