@@ -13,7 +13,7 @@ Curso Platzi
 - [Node Readline Introducción de datos por terminal](#Node-Readline-Introducción-de-datos-por-terminal)
 - [Node Child Process: Ejecución de subprocesos con Node](#Node-Child-Process-Ejecución-de-subprocesos-con-Node)
 - [Node Debugger: Depuración de código en Node](#Node-Debugger-Depuración-de-código-en-Node)
-- [](#)
+- [Node Errors Manejo de errores en Node](#Node-Errors-Manejo-de-errores-en-Node)
 - [](#)
 - [](#)
 - [](#)
@@ -328,4 +328,31 @@ https://github.com/platzi/nodejsbasico/tree/clase-node-debugger-base
 >next
 >.exit
 - vscode debuger
+## Node Errors: Manejo de errores en Node
+Node.js admite varios mecanismos para propagar y manejar errores que se producen mientras se ejecuta una aplicación. La forma en que se reportan y manejan estos errores depende completamente del tipo de Error y el estilo de la API que se llama
+
+https://github.com/platzi/nodejsbasico/tree/clase-node-errors-base
+
+- index.js
+```
+const  errors = require("./src/errors")
+
+try{
+    errors.standardErr.range();
+}catch(err){
+    console.log("Ha ocurrido un error:", err)
+}
+```
+- index.js
+```
+const  errors = require("./src/errors")
+
+//try{
+ //   errors.standardErr.range();
+//}catch(err){
+  //  console.log("Ha ocurrido un error:", //err)
+//}
+const handle = require("./src/handling")
+handle.errorFirstCallbackWrong()
+```
 ## 
