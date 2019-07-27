@@ -10,6 +10,10 @@ Curso Platzi
 - [Callbacks y Promesas Casos de estudio](#Callbacks-y-Promesas-Casos-de-estudio)
 - [Hacia el futuro asincronismo con Async/Await](#Hacia-el-futuro-asincronismo-con-Async/-Await)
 - [Node FileSystem Lectura/Escritura de archivos en Node](#Node-FileSystem-Lectura/-Escritura-de-archivos-en-Node)
+- [Node Readline Introducción de datos por terminal](#Node-Readline-Introducción-de-datos-por-terminal)
+- [](#)
+- [](#)
+- [](#)
 - [](#)
 - [](#)
 - [](#)
@@ -213,4 +217,68 @@ fs.readFile("./resources/number.txt", "Utf8",(err,text)=>{
 ```
 se crea el archivo numbernew
 
+## Node.js Readline: Introducción de datos por terminal
+El módulo Readline proporciona una forma de leer un flujo de datos, una línea a la vez.
+En este enlace podrás ver la documentación: https://nodejs.org/dist/latest-v10.x/docs/api/readline.html
 
+https://github.com/platzi/nodejsbasico/tree/clase-node-readline-base
+
+- index.js
+```
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+const q = [
+  
+  'Cual es tu primer nombre ?  ',
+  'Cual es tu primer apellido ? ',
+  'Cual es tu edad ? '
+];
+
+/*esta funcuion permite usar la interfaz, para imprimir una pregunta en la consola
+asi mismo, se queda esperando por la respuesta, cuando la obtiene la guardamos en resolve*/
+const AskQuestion = (rl, question) => {
+
+  return new Promise ((resolve, reject) => {
+    rl.question(question, answer => {
+      resolve(answer);
+    })
+  })
+} 
+
+/*Esta funcion recibe la interfaz,  una lista de preguntas, luego retornara una nueva promesa
+esta usa async,  dentro de esa lista de preguntas vamos a iterar con un for
+luego  usaremos await para llamar a  AskQuestion entonces,
+no pasara a la siguiente promesa hasta que esta se resuelva si o si
+finalmente ponemos  el resultado en results*/
+const Ask = function (questions) {
+
+  return new Promise (async resolve => {
+    let results = [];
+
+    for (let i = 0; i < questions.length; i++) {
+
+      const result = await AskQuestion(rl, questions[i]);
+      results.push(result);
+    }
+
+    rl.close();
+
+    resolve(results);
+
+  })
+}
+
+//puedes resolverlo con then 
+Ask(q)
+  .then(q => {
+    console.log(`Hola ${q[0]}${q[1]}, tu edad es ${q[2]} `)
+  })
+```
+- node index.js
+
+##
