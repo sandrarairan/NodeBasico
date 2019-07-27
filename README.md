@@ -12,7 +12,7 @@ Curso Platzi
 - [Node FileSystem Lectura/Escritura de archivos en Node](#Node-FileSystem-Lectura/-Escritura-de-archivos-en-Node)
 - [Node Readline Introducción de datos por terminal](#Node-Readline-Introducción-de-datos-por-terminal)
 - [Node Child Process: Ejecución de subprocesos con Node](#Node-Child-Process-Ejecución-de-subprocesos-con-Node)
-- [](#)
+- [Node Debugger: Depuración de código en Node](#Node-Debugger-Depuración-de-código-en-Node)
 - [](#)
 - [](#)
 - [](#)
@@ -303,6 +303,29 @@ function excmm(command){
 //excmm("ls");
 excmm("node ./src/script --base=7 --f=1e5");
 ```
+```
+## Node.js Debugger: Depuración de código en Node.js
+En esta clase aprenderemos a usar el modo debugging.
 
+https://github.com/platzi/nodejsbasico/tree/clase-node-debugger-base
 
-
+- node inspect index.js
+> next
+>cont
+- debugger; (en cualquier parte del codigo)
+>restart
+>cont 
+>(se para en el debuger y se da repl para ver las variables)
+>repl
+>n
+>.exit
+- node inspect index.js
+>cont
+>watch("n")
+>watch("n")
+>next
+>unwatch("i")   (para dejar de mirar expresiones)
+>next
+>.exit
+- vscode debuger
+## 
