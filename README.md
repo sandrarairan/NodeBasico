@@ -19,8 +19,8 @@ Curso Platzi
 - [Creación de un servidor web básico con HTTP](#Creación-de-un-servidor-web-básico-con-HTTP)
 - [Creación de un servidor web con Express](#Creación-de-un-servidor-web-con-Express)
 - [Construcción de un API con Express.js](#Construcción-de-un-API-con-Express)
-- [](#)
-- [](#)
+- [MongoDB Conexión y escritura de datos con Node](#MongoDB-Conexión-y-escritura-de-datos-con-Node)
+- [Completando nuestro API con MongoDB](#Completando-nuestro-API-con-MongoDB)
 - [](#)
 
 <!-- toc -->
@@ -459,3 +459,133 @@ https://github.com/platzi/nodejsbasico/tree/clase-servidor-express-2-base
 - npm run server
 - http://localhost:3000/api/users
 - otra alternativa: curl http://localhost:3000/route
+
+## MongoDB: Conexión y escritura de datos con Node.js
+MongoDB ofrece la base de datos líder en el mundo para aplicaciones modernas como un servicio en la nube. Es totalmente automatizada, diseñada y ejecutada por el mismo equipo que construye la base de datos.
+
+https://github.com/platzi/nodejsbasico/tree/clase-servidor-express-3-base
+
+https://docs.mongodb.com/manual/installation/
+
+- npm install
+- instalacion mngodb:
+1- Ingresa a https://www.mongodb.com/download-center/community y descarga el community server con la versión de tu sistema operativo.
+
+MongoDB
+2- Da doble clic sobre el archivo .tgz si tu sistema es Mac para descomprimir el archivo descargado.
+
+3- Copia la carpeta descargada en tu directorio Home o donde quieras dejar todos los ejecutables de Mongo.
+
+4- Actualizar tu PATH con la ruta a la carpeta donde dejaste los archivos descomprimidos:
+a- Abre un terminal y corre sudo nano /etc/paths ve a la última línea del archivo y agrega toda la ruta a la carpeta /bin que movimos en el paso 
+anterior.
+b- Presiona ctrl+x para salir e ingresa Y para guardar los cambios que acabas de hacer.
+c- Si ejecutas echo $PATH deberías tener la ruta que apunta a la carpeta /bin con los ejecutables de MongoDB.
+
+5- Para ejecutar MongoDB de forma local debes abrir una terminal y escribir mongod, mongod lo que hace es inicializar un servidor local de MongoDB en el puerto 27017. Si presionas ctrl+c o cierras la terminal el servidor local se dentendrá.
+
+6- Luego en una terminal aparte escribes mongo y das enter, mongo es la consola de MongoDB con la cual estaremos trabajando durante el curso. Si solamente escribimos mongo la consola esta se va a tratar de conectar al servidor local de MongoDB por el puerto 27017 que levantamos en el paso anterior con mongod si mongod no se está ejecutando saldrá un error de conexión.
+
+7- Durante el curso estaremos trabajando con MongoDB Atlas, para conectarnos desde la consola lo que debemos hacer es ejecutar mongo <MONGODB_ATLAS_URI> --user USUARIO_CREADO y luego el te pedirá el password.
+
+8- Si escribes show dbs te deberán salir las bases de datos que se encuentran en el cluster.
+
+**En Mac se me hizo mas sencillo con homebrew.**
+Primero instalamos homebrew, es recomendable tener actualizado Xcode, abrimos una terminal y escribimos lo siguiente:
+
+/usr/bin/ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”
+Cuando termine, cerramos y abrimos otra terminal, para escribir los comando de instalación de mongodb:
+
+brew update
+
+brew install mongodb
+
+sudo mkdir -p /data/db
+
+sudo chown -R id -un /data/db
+
+Para registrarlo como servicio, ingresamos estos ultimos comandos:
+
+brew tap homebrew/services
+
+brew services start mongodb
+
+Y listo, ahora en la terminal solo teclea “mongo” para empezar a usar el servicio.
+
+sudo mkdir -p /data/db
+sudo chown -R $(whoami):admin /data
+listo, finalmente podemos ejecutar mongod en una pestaña y conectarnos en otra con el comando mongo
+
+- se abre una terminal: mongo
+- en la otra npm run fill-db
+- luego donde esta mogo
+> show databases
+>use platzi
+>show collections
+>db.users.find({}).count()
+
+## Completando nuestro API con MongoDB
+En esta sesión terminaremos de completar nuestra API con Express, Node.js y MongoDB
+https://github.com/platzi/nodejsbasico/tree/clase-servidor-express-4-base
+
+- index.js de db
+```
+const mongo = require("./connect");
+const { DB_NAME } = require("./config")
+
+module.exports = {
+    getUsers: function() {
+        const db = mongo.instance.db(DB_NAME)
+        const users = db.collection("users").find({}).toArrary()
+        return users;
+    },
+    getUserById: function(id) {
+        return users.filter(user=>user._id===id);
+    },
+    getUserByAgeRange: function(lower = 0, higher = 99) {
+        return users.filter(user=>user.age >= lower && user.age <= higher);
+    }
+}
+
+```
+- npm run start (levanta el express)
+- index de db
+```
+const mongo = require('./connect')
+const { DB_NAME } = require('./config')
+
+/**
+ * Retorna la collecion de Users
+ * 
+ * @param {object} filter Paramátros para filtar los datos
+ */
+const getUserCollection = (filter = {}) => {
+    const db = mongo.instance().db(DB_NAME)
+    return db.collection('users').find(filter).toArray()
+}
+
+module.exports = {
+    getUsers: function () {
+        return getUserCollection({});
+    },
+    getUserById: function (id) {
+        return getUserCollection({
+            _id: id
+        })
+    },
+    getUserByAgeRange: function (lower = 0, higher = 99) {
+        return getUserCollection({
+            age: {
+                $gte: Number(lower),
+                $lte: Number(higher)
+            }
+        })
+    }
+}
+```
+- En el archivo routes/api.js poner async - await a la promesa retornada por ruta user/:id como se muestra en el codigo:
+
+app.get(`${API_BASE}/user/:id`, async (req, res) => {
+    constquery = await db.getUserById(req.params.id);
+    res.json(query);
+});
