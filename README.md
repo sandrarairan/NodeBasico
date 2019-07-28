@@ -22,12 +22,6 @@ Curso Platzi
 - [](#)
 - [](#)
 - [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
-- [](#)
 
 <!-- toc -->
 ## Mac instalación
@@ -458,8 +452,10 @@ app.listen(3000,()=>{
 ``` 
 - npm run start () se saca de package.json
 ## Construcción de un API con Express.js
-En esta sesión se presentarán las directivas generales para consumir un API desde una aplicación de Node.js. Se presentarán las directivas generales de configuración para escribir código de consumo de un API.
 
+En esta sesión se presentarán las directivas generales para consumir un API desde una aplicación de Node.js. Se presentarán las directivas generales de configuración para escribir código de consumo de un API.
 https://github.com/platzi/nodejsbasico/tree/clase-servidor-express-2-base
 
-- installar: https://www.getpostman.com/downloads/
+- npm run server
+- http://localhost:3000/api/users
+- otra alternativa: curl http://localhost:3000/route
