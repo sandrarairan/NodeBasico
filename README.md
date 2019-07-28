@@ -15,6 +15,11 @@ Curso Platzi
 - [Node Debugger: Depuración de código en Node](#Node-Debugger-Depuración-de-código-en-Node)
 - [Node Errors Manejo de errores en Node](#Node-Errors-Manejo-de-errores-en-Node)
 - [Node Events Emisión y recepción de eventos en Node](#Node-Events-Emisión-y-recepción-de-eventos-en-Node)
+- [Introducción al protocolo HTTP](#Introducción-al-protocolo-HTTP)
+- [Creación de un servidor web básico con HTTP](#Creación-de-un-servidor-web-básico-con-HTTP)
+- [](#)
+- [](#)
+- [](#)
 - [](#)
 - [](#)
 
@@ -375,3 +380,37 @@ const greet = require("./src/greet")
  })
  ```
  
+## Introducción al protocolo HTTP
+**SERVCIOS WEB NO CON EXPRESS**
+Las interfaces HTTP en Node.js están diseñadas para admitir muchas características del protocolo que tradicionalmente han sido difíciles de usar. En particular, mensajes grandes, posiblemente codificados, trozos. La interfaz tiene cuidado de no amortiguar nunca solicitudes o respuestas completas, ya que el usuario puede transmitir datos.
+
+## Creación de un servidor web básico con HTTP
+Si una conexión de cliente emite un evento de ‘error’, se reenviará aquí. El "listener"de este evento es responsable de cerrar / destruir el socket subyacente. Por ejemplo, uno puede desear cerrar con más gracia el socket con una respuesta HTTP personalizada en lugar de cortar bruscamente la conexión.
+
+https://www.w3schools.com/nodejs/nodejs_npm.asp
+
+https://github.com/platzi/nodejsbasico/tree/clase-servidor-http-base
+
+- index.js
+```
+const http = require("http");
+const fs = require("fs");
+const port = 3000;
+const route = "./resources/my_page.html";
+
+
+const server = http.createServer((req, res ) => {
+
+	fs.readFile(route, (err, data ) => {
+		if(err) { console.error(err); return;}
+
+		res.end(data);
+	})
+})
+
+console.log(`Iniciando el servidor en el puerto ${port}`); 	
+server.listen(port)
+```
+- node .
+-localhost:3000
+
