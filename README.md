@@ -14,7 +14,7 @@ Curso Platzi
 - [Node Child Process: Ejecución de subprocesos con Node](#Node-Child-Process-Ejecución-de-subprocesos-con-Node)
 - [Node Debugger: Depuración de código en Node](#Node-Debugger-Depuración-de-código-en-Node)
 - [Node Errors Manejo de errores en Node](#Node-Errors-Manejo-de-errores-en-Node)
-- [](#)
+- [Node Events Emisión y recepción de eventos en Node](#Node-Events-Emisión-y-recepción-de-eventos-en-Node)
 - [](#)
 - [](#)
 
@@ -355,4 +355,23 @@ const  errors = require("./src/errors")
 const handle = require("./src/handling")
 handle.errorFirstCallbackWrong()
 ```
-## 
+## Node Events Emisión y recepción de eventos en Node
+
+Gran parte de la API central de Node.js se basa en una arquitectura asincrónica idiomática basada en eventos, en la que ciertos tipos de objetos (llamados “emisores”) emiten eventos con nombre que hacen que se llame a los objetos de función (“listeners”).
+
+https://nodejs.org/docs/latest-v8.x/api/events.html
+
+https://github.com/platzi/nodejsbasico/tree/clase-node-events-base
+
+- index.js
+```
+const greet = require("./src/greet")
+
+ greet.emit("clap") //Hacer llamado al evento sin argumento
+ greet.emit("greet", "CC") //Hacer llamado al evento, con un argumento
+
+ greet.emit("call", "sandra rairan" ,name=> { //Llamado a evento con función Callback
+     console.log(`Hi! ${name}`)
+ })
+ ```
+ 
