@@ -17,7 +17,7 @@ Curso Platzi
 - [Node Events Emisión y recepción de eventos en Node](#Node-Events-Emisión-y-recepción-de-eventos-en-Node)
 - [Introducción al protocolo HTTP](#Introducción-al-protocolo-HTTP)
 - [Creación de un servidor web básico con HTTP](#Creación-de-un-servidor-web-básico-con-HTTP)
-- [](#)
+- [Creación de un servidor web con Express](#Creación-de-un-servidor-web-con-Express)
 - [](#)
 - [](#)
 - [](#)
@@ -414,3 +414,41 @@ server.listen(port)
 - node .
 -localhost:3000
 
+## Creación de un servidor web con Express.js
+
+Express es un marco de aplicación web Node.js mínimo y flexible que proporciona un conjunto sólido de funciones para aplicaciones web y móviles.
+
+https://www.w3schools.com/nodejs/nodejs_npm.asp
+
+http://expressjs.com/
+
+https://github.com/platzi/nodejsbasico/tree/clase-servidor-express-2-base
+
+https://github.com/platzi/nodejsbasico/tree/clase-servidor-express-base
+
+- index.js
+```
+const express = require("express")
+const app = express();
+const fs =require("fs")
+ 
+app.get("/app",(req,res)=>{
+    res.end("Estoy en la ruta /app")
+  })
+
+app.get("/",(req,res)=>{
+    res.send("Estoy en Home")
+  })
+
+
+
+app.get("*",(req,res)=>{
+  res.send("No se donde estoy")
+})
+
+app.listen(3000,()=>{
+    console.log("El servidor express está escuchando en el puerto 3000")
+  })
+``` 
+- npm run start () se saca de package.json
+- 
