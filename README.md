@@ -21,6 +21,12 @@ Curso Platzi
 - [Construcción de un API con Express.js](#Construcción-de-un-API-con-Express)
 - [MongoDB Conexión y escritura de datos con Node](#MongoDB-Conexión-y-escritura-de-datos-con-Node)
 - [Completando nuestro API con MongoDB](#Completando-nuestro-API-con-MongoDB)
+- [Bienvenido a la sección del Proyecto del Curso](#Bienvenido-a-la-sección-del-Proyecto-del-Curso)
+- [Introducción a Socket.io y proyecto de curso](#Introducción-a-Socket.io-y-proyecto-de-curso)
+- [](#)
+- [](#)
+- [](#)
+- [](#)
 - [](#)
 
 <!-- toc -->
@@ -589,3 +595,67 @@ app.get(`${API_BASE}/user/:id`, async (req, res) => {
     constquery = await db.getUserById(req.params.id);
     res.json(query);
 });
+
+## Bienvenido a la sección del Proyecto del Curso
+
+Si has llegado hasta aquí, estás listo para crear tu primer proyecto con NodeJs: Un juego interactivo de “Tres en raya”.
+
+Recuerda que en ésta liga puedes acceder al repositorio del curso --> https://github.com/platzi/nodejsbasico
+
+## Introducción a Socket.io y proyecto de curso
+WebSocket es un protocolo de comunicacion que proporciona canales de comunicación dúplex completos a través de una única conexión TCP.
+
+Socket.IO permite la comunicación en tiempo real, bidireccional y basada en eventos.
+
+https://github.com/platzi/nodejsbasico/tree/clase-proyecto-socket-base
+
+https://socket.io/
+
+
+Funciona en todas las plataformas, navegadores o dispositivos, centrándose igualmente en la confiabilidad y la velocidad.
+index.js 
+```
+const server = require('http').Server();
+const io = require('socket.io')(server);
+const port = require('./config').SERVER_PORT;
+
+const banner = `
+***********************
+  Basic Node.js Course
+    Course Project
+  Tic Tac Toe Server
+***********************
+Status: Online
+Listening: on port: ${port}
+`;
+
+io.on('connection', (socket) => {
+  socket.on('register', user => {
+    console.info(`User registed: ${user.name}`)
+  })
+})
+
+server.listen(port, () => {
+  console.info(banner);
+});
+
+- corremos fronted
+ npm run start-frontend
+
+- corremos el backend
+ npm run start-backend
+
+ 
+- en el cliente react seleccionamos network y el usuario
+```
+**Bases y fundamentos del proyecto final: Tic-tac-toe**
+
+https://github.com/platzi/nodejsbasico/tree/clase-proyecto-socket-2-base
+
+- corremos fronted
+ npm run start-frontend
+
+- corremos el backend
+ npm run start-backend
+ 
+ https://github.com/platzi/nodejsbasico/tree/clase-proyecto-socket-final
